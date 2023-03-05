@@ -106,10 +106,10 @@ linearlist = ["Linear Regression", "Ridge Regression", "Lasso Regression", "Elas
 #dump(sc, 'std_scaler.bin', compress=True)
 #sc=load('std_scaler.bin')
 
-path_rm = "G:\\Dropbox\\work2\\home\\aigood\\static\\models\\"
-UPLOAD_FOLDER = "G:\\Dropbox\\work2\\home\\aigood\\static\\uploads"
-DOWNLOAD_FOLDER = "G:\\Dropbox\\work2\\home\\aigood\\static\\downloads"
-MODEL_FOLDER = "G:\\Dropbox\\work2\\home\\aigood\\static\\models"
+path_rm = "G:\\Dropbox\\work\\home\\ai\\static\\models\\"
+UPLOAD_FOLDER = "G:\\Dropbox\\work\\home\\ai\\static\\uploads"
+DOWNLOAD_FOLDER = "G:\\Dropbox\\work\\home\\ai\\static\\downloads"
+MODEL_FOLDER = "G:\\Dropbox\\work\\home\\ai\\static\\models"
 
 ALLOWED_EXTENSIONS = set(['xlsx', 'csv', 'xls'])
 
