@@ -2,10 +2,10 @@
 ## Set Up: 
 Change these lines to your PC/laptop/server environment:
 ```python
-path_rm = "D:\\Dropbox\\work\\home\\aigood\\static\\models\\"
-UPLOAD_FOLDER = "D:\\Dropbox\\work\\home\\aigood\\static\\uploads"
-DOWNLOAD_FOLDER = "D:\\Dropbox\\work\\home\\aigood\\static\\downloads"
-MODEL_FOLDER = "D:\\Dropbox\\work\\home\\aigood\\static\\models"
+path_rm = "D:\\Dropbox\\work\\home\\ai\\static\\models\\"
+UPLOAD_FOLDER = "D:\\Dropbox\\work\\home\\ai\\static\\uploads"
+DOWNLOAD_FOLDER = "D:\\Dropbox\\work\\home\\ai\\static\\downloads"
+MODEL_FOLDER = "D:\\Dropbox\\work\\home\\ai\\static\\models"
 
 engine = create_engine('postgresql+psycopg2://postgres:xxx@localhost:5432/mydb')
 db = psycopg2.connect(database="mydb", user='postgres', password='xxx', host='localhost', port= '5432')
