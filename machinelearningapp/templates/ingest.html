@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>X1 Machine Learning Platform</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/css/style.css">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/locale/bootstrap-table-zh-CN.min.js"></script>
+</head>
+<body>
+<div class="wrapper d-flex align-items-stretch">
+  <nav id="sidebar">
+    <div class="custom-menu">
+      <button type="button" id="sidebarCollapse" class="btn btn-primary"> <i class="fa fa-bars"></i> <span class="sr-only">Toggle Menu</span> </button>
+    </div>
+    <h1><a href="{{url_for('home')}}" class="logo">Machine Learning Platform</a></h1>
+    <ul class="list-unstyled components mb-5">
+      <!-- <li> <a href="{{url_for('home')}}"><span class="fa fa-home mr-3"></span> Homepage</a> </li> -->
+      <li class="active"> <a href="{{url_for('ingestprocessor')}}"><span class="fa fa-user mr-3"></span> Data Ingestion</a> </li>
+      <li> <a href="{{url_for('preprocessing1')}}"><span class="fa fa-user mr-3"></span> Data Preprocessing</a> </li>
+      <li> <a href="{{url_for('algorithmsandmodeling')}}"><span class="fa fa-user mr-3"></span> Machine Learning</a> </li>
+      <!-- <li> <a href="{{url_for('machinelearning')}}"><span class="fa fa-user mr-3"></span> Machine Learning</a> </li>
+      <li> <a href="{{url_for('outputvisualization')}}"><span class="fa fa-user mr-3"></span> Output Visualization</a> </li> -->
+    </ul>
+  </nav>
+  
+  <!-- Page Content  -->
+  <div id="content" class="p-4 p-md-5 pt-5">
+    <h2 class="mb-4">Data Ingestion</h2>
+    <div class="container-fluid">
+      <form action="/ingestprocessor" method="POST" enctype="multipart/form-data">
+        
+        <div class="row">
+        <div class="col-lg">
+
+            <div class="row">
+            <div class="form-group">
+              <label for="tbname"><strong>Step 1.</strong> Select Table from Existing Database</label>
+              <br>
+              <select class="form-select" id="tbname" name="tbname">
+                
+                
+                            {% for item in tablenamelist %}
+                              {% if tablen == item %}
+                                
+                
+                <option value="{{item}}" selected>{{item}}</option>
+                
+                
+                              {% else %}
+                                
+                
+                <option value="{{item}}">{{item}}</option>
+                
+                
+                              {% endif %}
+                            {% endfor %}
+                        
+              
+              </select>
+              <input type="hidden" id="tnames" name="tnames" value='{{tablelist}}'>
+              <input type="hidden" id="seltable" name="seltable" value='{{sheetn}}'>
+              <input type="hidden" id="select_table" name="select_table" value='{{tablen}}'>
+              <input type="hidden" id="plaintablelist" name="plaintablelist" value='{{tablenamelist}}'>
+              <br>
+              <br>
+              <input type="submit" class="btn btn-success btn-sm" name="action_select_tb" value="Select">
+            </div>
+            </div>
+
+            <div class="row">
+              <H3>OR</H3>
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <label for="ingestion_upload"><strong>Step 1.</strong> Data File Upload (*.csv, *.xls, *.xlsx)</label>
+                <input type="file" name="ingestion_uploadfile" class="form-control-file" id="ingestion_uploadfile">
+              </div>
+            </div>
+
+            <div class="row">
+            <div class="form-group">
+              <label for="nametable"><strong>Step 2.</strong> Give a Name for Your Table</label>
+              <input type="text" name="nametable" class="form-control-file" id="nametable">
+              <br>
+              <input type="submit" class="btn btn-success btn-sm" name="action_upload" value="Upload">
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="form-group">
+              <label for="sheetname"><strong>Step 3.</strong> Select a Sheet/Table</label>
+              <br>
+              <select class="form-select" id="sheetname" name="sheetname">
+                
+            
+                            {% for item in tablelist %}
+                              {% if sheetn == item %}
+                                
+            
+                <option value="{{item}}" selected>{{item}}</option>
+                
+            
+                              {% else %}
+                                
+            
+                <option value="{{item}}">{{item}}</option>
+                
+            
+                              {% endif %}
+                            {% endfor %}
+                        
+          
+              </select>
+              <br>
+              <br>
+              <input type="submit" class="btn btn-primary btn-sm" name="action_selectsheet" value="Select">
+            </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-lg">
+            <div class="row">
+              <label><strong>Step 5.</strong> Use Ctrl-Click to select X and Y Variables and click 'Confirm'.</label>
+            </div>
+            <div class="row">
+              
+
+              <div class="col-3">
+                <p>Input X: </p>
+                <select class="form-select" id="picklistX" name="picklistX" multiple aria-label="multiple select example" size="12">
+                  
+                  
+                            {% for item in colnames %}
+                                
+                  
+                  <option value="{{item}}">{{item}}</option>
+                  
+                  
+                            {% endfor %}
+                        
+                
+                </select>
+                <br>
+                <input type="submit" class="btn btn-primary btn-sm" name="action_get" value="Confirm">
+              </div>
+
+              <div class="col-1"></div>
+
+              <div class="col-3"> 
+                <!-- &nbsp;&nbsp;&nbsp;&nbsp;  -->
+                
+                <p>Labels/Target Y: </p>
+                <select class="form-select" id="picklistY" name="picklistY" multiple aria-label="multiple select example" size="12">
+                  
+                  
+                            {% for item in colnames %}
+                                
+                  
+                  <option value="{{item}}">{{item}}</option>
+                  
+                  
+                            {% endfor %}
+                        
+                
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+        
+        <label><strong>Step 4.</strong> Edit Your Table</label>
+        <table class="table table-striped" border="2" cellpadding="5" cellspacing="5">
+          <tr>
+            <th></th>
+            {% for colhead in colheaders %}
+            <th> {{colhead}} </th>
+            {% endfor %} </tr>
+          {% for row in result_tuples %}
+          <tr> {% for d in row %}
+            {% if is_float(d) %}
+            <td style="background-color:#00FF00">{{ d }}</td>
+            {% elif is_int(d) %}
+            <td style="background-color:#C798EE">{{ d }}</td>
+            {% elif is_fl(d) %}
+            <td style="background-color:#FF66A3">{{ d|safe }}</td>
+            {% elif contains_button(d) %}
+            <td style="background-color:#000000">{{ d|safe }}</td>
+            {% elif is_date(d) %}
+            <td style="background-color:#98C5F1">{{ d }}</td>
+            {% else %}
+            <td>{{ d }}</td>
+            {% endif %}
+            {% endfor %} </tr>
+          {% endfor %}
+        </table>
+      </form>
+
+      
+      <hr>
+      {% if displayselected==true %}
+      <div class="row">
+        <div class="col-5">
+          <label>Your selected X Inputs</label>
+          <br>
+          <select class="form-select" multiple aria-label="multiple select example" size="5" disabled>
+            
+            
+                            {% for item in Xcolnames %}
+                                
+            
+            <option value="{{item}}" selected>{{item}}</option>
+            
+            
+                            {% endfor %}
+                      
+          
+          </select>
+        </div>
+        <div class="col-5">
+          <label>Your selected Y Labels/Targets</label>
+          <br>
+          <select class="form-select" multiple aria-label="multiple select example" size="5" disabled>
+            
+            
+                            {% for item in Ycolnames %}
+                                
+            
+            <option value="{{item}}" selected>{{item}}</option>
+            
+            
+                            {% endfor %}
+                      
+          
+          </select>
+        </div>
+      </div>
+      {% endif %}
+      <div class="row">
+        <form action="/edit_save" method="post" enctype="multipart/form-data">
+          <table>
+            {% for table in df_table_selected %}
+            {{ table|safe }}
+            {% endfor %}
+          </table>
+          <input type="hidden" name="col_arbitrary" value='{{colnn}}'>
+          <input type="hidden" name="name_arbitrary" value='{{nam}}'>
+          <input type="hidden" name="selectedrow" value='{{selectedrow}}'>
+          <input type="hidden" id="seltable" name="seltable" value='{{sheetn}}'>
+          <input type="hidden" id="tnames" name="tnames" value='{{tablelist}}'>
+          {% if btnflag == true %}
+          <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+          {% endif %}
+        </form>
+      </div>
+      <form action="/dataprocessing" method="POST" enctype="multipart/form-data">
+        <div class="row">
+          <input type="hidden" id="seltable" name="seltable" value='{{sheetn}}'>
+          <input type="hidden" id="tnames" name="tnames" value='{{tablelist}}'>
+          <input type="hidden" id="XYtablenames" name="XYtablenames" value='{{designatedtable}}'>
+          <div class="col-5"> {% if detectbtnflag == true %}
+            <div class="mt-3">
+              <input type="submit" class="btn btn-primary btn-sm" name="action_detect" value="Process Data">
+            </div>
+            <br>
+            {% endif %} </div>
+          <div class="col-2"> {% if toprocessbtnflag == true %}
+            <div class="mt-3">
+              <input type="submit" class="btn btn-success btn-sm" name="action_detect" value="Proceed to Next Stage">
+            </div>
+            {% endif %} </div>
+        </div>
+        <div class="row">
+          <div class="col-5">
+            <label>{{sheetn}} INPUT X</label>
+            <table>
+              {% for table in df_tableX %}
+              {{ table|safe }}
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-5">
+            <label>{{sheetn}} LABEL/TARGET Y</label>
+            <table>
+              {% for table in df_tableY %}
+              {{ table|safe }}
+              {% endfor %}
+            </table>
+          </div>
+          <input type="hidden" id="xcolumnnames" name="xcolumnnames" value='{{selectedcolumnsX}}'>
+          <input type="hidden" id="xcolumnnames" name="ycolumnnames" value='{{selectedcolumnsY}}'>
+          <div class="col-3"> </div>
+        </div>
+      </form>
+      <br>
+      <div> {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        {% endif %}
+        {% endwith %} </div>
+      <br>
+    </div>
+  </div>
+</div>
+<!-- <script src="/static/js/main.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>X1 Machine Learning Platform</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/css/style.css">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.1/locale/bootstrap-table-zh-CN.min.js"></script>
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="{{url_for('home')}}" class="logo">Machine Learning Platform</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <!-- <li>
+            <a href="{{url_for('home')}}"><span class="fa fa-home mr-3"></span> Homepage</a>
+          </li> -->
+          <li>
+              <a href="{{url_for('ingestprocessor')}}"><span class="fa fa-user mr-3"></span> Data Ingestion</a>
+          </li>
+          <li class="active">
+            <a href="{{url_for('preprocessing1')}}"><span class="fa fa-user mr-3"></span> Data Preprocessing</a>
+          </li>
+          <li>
+            <a href="{{url_for('algorithmsandmodeling')}}"><span class="fa fa-user mr-3"></span> Machine Learning</a>
+          </li>
+          <!-- <li>
+            <a href="{{url_for('machinelearning')}}"><span class="fa fa-user mr-3"></span> Machine Learning</a>
+          </li>
+          <li>
+            <a href="{{url_for('outputvisualization')}}"><span class="fa fa-user mr-3"></span> Output Visualization</a>
+          </li> -->
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+
+        <div class="container-fluid">
+
+        <div class="form-group row">
+
+        <h2 class="mb-4">Data Preprocessing</h2>
+
+        <form action="/preprocessing1" method="post" enctype="multipart/form-data" autocomplete="on">
+
+          <div class="row">
+
+            <div class="col-lg">
+
+                    <!-- <label for="tbnamexy">Select X&Y Tables from Existing Database</label>
+                        <br>
+                        <select class="form-select" id="tbnamexy" name="tbnamexy">
+                            {% for item in tablenamexylist %}
+                              {% if tablenxy == item %}
+                                <option value="{{item}}" selected>{{item}}</option>
+                              {% else %}
+                                <option value="{{item}}">{{item}}</option>
+                              {% endif %}
+                            {% endfor %}
+                        </select>
+
+                    <br><br>       
+ -->                
+                    <label for="tablenamex" class="mdb-main-label">Step 1. Select <strong>X</strong> (Inputs) & <strong>Y</strong> (Labels/Targets) from Existing Database</label>
+             
+                    <br>
+
+                    <select name="tablenamex" class="mdb-select md-form colorful-select dropdown-primary">
+                        {% for item in listoftables %}
+                            {% if item == tablenamex %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                        {% endfor %}
+                    </select>
+
+                    <!-- <br><br>
+
+                    <label for="tablenamey" class="mdb-main-label">Select Label/Target Y</label>
+             
+                    <br>
+
+                    <select name="tablenamey" class="mdb-select md-form colorful-select dropdown-primary">
+                        {% for item in listoftables %}
+                            {% if item == tablenamey %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                        {% endfor %}
+                    </select>-->
+
+                    <br><br>
+
+                    <input type="hidden" id="tnames" name="tnames" value='{{listoftables}}'>
+                
+                    <input type="submit" class="btn btn-success" name="showtable1" value="Show Table">
+             
+
+            </div>
+
+            <!-- <div class="col-lg">
+
+                <label for="testsize">Size of Test Set (0.1 to 0.9)</label>
+              <input type="text" id="testsize" name="testsize" value="{{testsize}}"><br><br>
+
+                <input type="submit" class="btn btn-primary" name="splitdata" value="Split Data">
+            </div> -->
+
+            <div class="col-lg">
+
+                <label for="transformmodel" class="mdb-main-label">Step 2. Select Transform Model</label>
+             
+                    <br>
+
+                    <select name="transformmodel" class="mdb-select md-form colorful-select dropdown-primary">
+                        
+                           <option value="MinMaxScaler" {% if 'MinMaxScaler' == transformmodel%} selected {% endif %}>MinMaxScaler</option>
+                           <option value="LabelEncoder" {% if 'LabelEncoder' == transformmodel%} selected {% endif %}>LabelEncoder</option>
+                           <option value="StandardScaler" {% if 'StandardScaler' == transformmodel%} selected {% endif %}>StandardScaler</option>
+                           <option value="OneHotEncoder" {% if 'OneHotEncoder' == transformmodel%} selected {% endif %}>OneHotEncoder</option>
+                           <option value="LabelBinarizer" {% if 'LabelBinarizer' == transformmodel%} selected {% endif %}>LabelBinarizer</option>
+                           <option value="KBinsDiscretizer" {% if 'KBinsDiscretizer' == transformmodel%} selected {% endif %}>KBinsDiscretizer</option>
+                                                       
+                      </select>
+
+                      <br><br>
+
+                        <label for="selectedcolumnx">Select Column for X</label>
+                        <select name="selectedcolumnx" class="mdb-select md-form colorful-select dropdown-primary">
+                          {% for item in columnames_x %}
+                            {% if item == selectedcolumnx %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                          {% endfor %}
+                          <option value="everycolumnx">Every Column</option>
+                          <option value="notrequiredx">No Transform Required</option>
+                        </select>
+                        <br>
+                        <input type="submit" class="btn btn-info btn-sm" name="processx1" value="Fit Transform">
+
+                      <br><br>
+
+                        <label for="selectedcolumny">Select Column for y</label>
+                        <select name="selectedcolumny" class="mdb-select md-form colorful-select dropdown-primary">
+                          {% for item in columnames_y %}
+                            {% if item == selectedcolumny %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                                
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                                
+                            {% endif %}      
+                          {% endfor %}
+                          <option value="everycolumny">Every Column</option>
+                          <option value="notrequiredy">No Transform Required</option>
+                        </select>
+                        <br>
+                        <input type="submit" class="btn btn-info btn-sm" name="processy1" value="Fit Transform">
+
+                        <input type="hidden" name="binfilename" value="{{markbinfile}}">
+                        
+                      <br><br>
+
+
+                <input type="submit" class="btn btn-danger btn-sm" name="resetx1" value="RESET">
+
+                </div>
+
+                <div class="col-lg">
+                    <label for="testsize">Step 3. Size of Test Set (0.1 to 0.9)</label>
+                    <input type="text" id="testsize" name="testsize" value="{{testsize}}"><br><br>
+
+                    <input type="submit" class="btn btn-primary btn-sm" name="splitdata1" value="Split Data">
+                </div>
+
+                <!-- <div class="col-lg">
+                    <label for="modelname">Select AI Model</label>
+                      <br>
+                      <select class="form-select" id="modelname" name="modelname">
+                        
+                                        {% for item in modelnamelist %}
+                                          {% if modelname == item %}
+                                            
+                        <option value="{{item}}" selected>{{item}}</option>
+                        
+                                          {% else %}
+                                            
+                        <option value="{{item}}">{{item}}</option>
+                        
+                                          {% endif %}
+                                        {% endfor %}
+                                    
+                      </select>
+                      &nbsp;&nbsp;&nbsp;
+                    <input type="submit" class="btn btn-primary btn-sm" name="apply" value="Run">
+                </div> -->
+
+                
+                    <!-- <input type="submit" class="btn btn-success" name="submittransformmodel" value="Submit"> -->
+
+                    <!-- <label for="transformmodel" class="mdb-main-label">Select Transform Model</label>
+             
+                    <br>
+
+                    <select name="transformmodel" class="mdb-select md-form colorful-select dropdown-primary">
+                        
+
+                           <option value="MinMaxScaler">MinMaxScaler</option>
+                           <option value="LabelEncoder">LabelEncoder</option>
+                           <option value="OneHotEncoder">OneHotEncoder</option>
+                           <option value="LabelBinarizer">LabelBinarizer</option>
+                           <option value="StandardScaler">StandardScaler</option>
+                           <option value="KBinsDiscretizer">KBinsDiscretizer</option>
+                                
+                        
+                      </select>
+
+                      <br><br> -->
+
+                
+                    <!-- <input type="submit" class="btn btn-success" name="submittransformmodel" value="Submit"> -->
+
+                    
+                         {% if encoderandstrategyflag == true %}
+            <div class="col-lg">
+
+                  <label for="encode_method" class="mdb-main-label">Select Encoder Method</label>
+             
+                    <br>
+
+                    <select name="encode_method" class="mdb-select md-form colorful-select dropdown-primary">
+                        {% for item in encode_methods %}
+                            {% if item == encode_method %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                        {% endfor %}
+                    </select>
+
+                  <br><br>
+
+                  <label for="strategy_used" class="mdb-main-label">Select Strategy</label>
+             
+                    <br>
+
+                    <select name="strategy_used" class="mdb-select md-form colorful-select dropdown-primary">
+                        {% for item in strategies_used %}
+                            {% if item == strategy_used %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                        {% endfor %}
+                    </select>
+
+                  <br><br>
+                  <input type="submit" class="btn btn-danger" name="get_encodeandstrategy" value="Select Encoder and Strategy">
+          
+
+
+            </div>
+            {% endif %}
+
+            
+
+            <!-- <div class="col-lg">
+                <input type="submit" class="btn btn-success" name="fitdata" value="Fit Data">
+                <br><br>
+                <H5 style="color:black;font-size:14pt;">{{transformmodel}}&nbsp;{{xlabel}}&nbsp;<H5>
+
+                <p style="color:red;font-size:12pt;">{{columnames_x}}</p>
+                
+                {% for item in modelattrx %}
+
+                      <p style="color:red;font-size:12pt;">{{item}}</p>
+
+                {% endfor %}
+
+                <br>
+
+                <H5 style="color:black;font-size:14pt;">{{transformmodel}}&nbsp;{{ylabel}}&nbsp;<H5>
+
+                <p style="color:blue;font-size:12pt;">{{columnames_y}}</p>
+                
+                {% for item in modelattry %}
+
+                      <p style="color:blue;font-size:12pt;">{{item}}</p>
+
+                {% endfor %}
+
+
+
+            </div> -->
+
+
+
+            <!-- <div class="col-lg">
+                <input type="submit" class="btn btn-danger" name="fittransformdata" value="Fit-Transform Data">
+            </div> -->
+
+               <!-- <div class="col-lg">
+
+              <label for="transformmodelsp" class="mdb-main-label">Select Transform Model</label>
+             
+                    <br>
+
+                    <select name="transformmodelsp" class="mdb-select md-form colorful-select dropdown-primary">
+                        
+                           <option value="MinMaxScaler" {% if 'MinMaxScaler' == transformmodelsp%} selected {% endif %}>MinMaxScaler</option>
+                           <option value="LabelEncoder" {% if 'LabelEncoder' == transformmodelsp%} selected {% endif %}>LabelEncoder</option>
+                           <option value="StandardScaler" {% if 'StandardScaler' == transformmodelsp%} selected {% endif %}>StandardScaler</option>
+                           <option value="OneHotEncoder" {% if 'OneHotEncoder' == transformmodelsp%} selected {% endif %}>OneHotEncoder</option>
+                           <option value="LabelBinarizer" {% if 'LabelBinarizer' == transformmodelsp%} selected {% endif %}>LabelBinarizer</option>
+                           <option value="KBinsDiscretizer" {% if 'KBinsDiscretizer' == transformmodelsp%} selected {% endif %}>KBinsDiscretizer</option>
+                                                       
+                      </select>
+
+                      <br><br>
+
+                        <label for="selectedcolumnx_xtrain">Select Column for X Train</label>
+                        <select name="selectedcolumnx_xtrain" class="mdb-select md-form colorful-select dropdown-primary">
+                          {% for item in columnames_x %}
+                            {% if item == selectedcolumnx_xtrain %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                          {% endfor %}
+                        </select>
+                        <br>
+                        <input type="submit" class="btn btn-info btn-sm" name="processxtrain1" value="Fit Transform">
+
+                      <br><br>
+
+                        <label for="selectedcolumnx_xtest">Select Column for X Test</label>
+                        <select name="selectedcolumnx_xtest" class="mdb-select md-form colorful-select dropdown-primary">
+                          {% for item in columnames_x %}
+                            {% if item == selectedcolumnx_xtest %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                          {% endfor %}
+                        </select>
+                        <br>
+                        <input type="submit" class="btn btn-info btn-sm" name="processxtest1" value="Fit Transform">
+
+                      <br><br>
+
+                        <label for="selectedcolumny_ytrain">Select Column for y Train</label>
+                        <select name="selectedcolumny_ytrain" class="mdb-select md-form colorful-select dropdown-primary">
+                          {% for item in columnames_y %}
+                            {% if item == selectedcolumny_ytrain %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                          {% endfor %}
+                        </select>
+                        <br>
+                        <input type="submit" class="btn btn-info btn-sm" name="processytrain1" value="Fit Transform">
+
+                      <br><br>
+
+                        <label for="selectedcolumny_ytest">Select Column for y Test</label>
+                        <select name="selectedcolumny_ytest" class="mdb-select md-form colorful-select dropdown-primary">
+                          {% for item in columnames_y %}
+                            {% if item == selectedcolumny_ytest %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}      
+                          {% endfor %}
+                        </select>
+                        <br>
+                        <input type="submit" class="btn btn-info btn-sm" name="processytest1" value="Fit Transform">
+
+                      <br><br>
+
+
+                <input type="submit" class="btn btn-danger btn-sm" name="resetsplit1" value="RESET">
+
+            </div> -->
+
+         
+          </div>
+
+          <div class="row">
+      
+            
+              <h4>{{tablename}}</h4>
+              <br>
+              <table class="table">
+              {% for table in table1 %}
+                {{ table|safe }}
+                {% endfor %}
+              </table>
+            
+          </div>
+
+        </form>
+
+      </div>
+
+  </div>
+
+      <hr>
+
+        
+          <div class="row">
+
+                    <div class="col-5">
+
+                          <label>{{xlabel}}</label>
+                          <table>
+                              {% for table in df_tableX %}
+                                {{ table|safe }}
+                              {% endfor %}
+                          </table>
+
+                    </div>
+
+                    <!-- <div class="col-1">
+
+
+                    </div> -->
+
+                    </div>
+          <div class="row">
+
+                    <div class="col-5">
+
+                          <label>{{ylabel}}</label>
+                          <table>
+                              {% for table in df_tableY %}
+                                {{ table|safe }}
+                              {% endfor %}
+                          </table>
+
+                    </div>
+
+          </div>
+        
+
+          <div class="row">
+
+                    <div class="col-5">
+
+                      <h5>{{labelstrXtrain}}</h5>
+              
+                      <table class="table table-dark">
+                      {% for table in xtrain %}
+                        {{ table|safe }}
+                        {% endfor %}
+                      </table>   
+                         
+
+                    </div>
+
+                    <div class="col-1">
+
+
+                    </div>
+
+                    <div class="col-5">
+
+                      <h5>{{labelstrYtrain}}</h5>
+              
+                      <table class="table table-dark">
+                      {% for table in ytrain %}
+                        {{ table|safe }}
+                        {% endfor %}
+                      </table>
+                         
+
+                    </div>
+
+          </div>
+          <br>
+          <div class="row">
+
+                    <div class="col-5">
+
+                      <h5>{{labelstrXtest}}</h5>
+              
+                      <table class="table table-dark">
+                      {% for table in xtest %}
+                        {{ table|safe }}
+                        {% endfor %}
+                      </table>
+                         
+
+                    </div>
+
+                    <div class="col-1">
+
+
+                    </div>
+
+                    <div class="col-5">
+
+                      <h5>{{labelstrYtest}}</h5>
+              
+                      <table class="table table-dark">
+                      {% for table in ytest %}
+                        {{ table|safe }}
+                        {% endfor %}
+                      </table>
+                         
+
+                    </div>
+
+          </div>
+
+
+
+          
+
+          <!-- <div class="row">
+      
+            
+              <h5>{{labelstrXtrain}}</h5>
+              
+              <table class="table table-dark">
+              {% for table in xtrain %}
+                {{ table|safe }}
+                {% endfor %}
+              </table>
+            
+          </div>
+          <br>
+          <div class="row">
+      
+            
+              <h5>{{labelstrYtrain}}</h5>
+              
+              <table class="table table-dark">
+              {% for table in ytrain %}
+                {{ table|safe }}
+                {% endfor %}
+              </table>
+            
+          </div>
+          <br>
+          <div class="row">
+      
+            
+              <h5>{{labelstrXtest}}</h5>
+              
+              <table class="table table-dark">
+              {% for table in xtest %}
+                {{ table|safe }}
+                {% endfor %}
+              </table>
+            
+          </div>
+          <br>
+          <div class="row">
+      
+            
+              <h5>{{labelstrYtest}}</h5>
+              
+              <table class="table table-dark">
+              {% for table in ytest %}
+                {{ table|safe }}
+                {% endfor %}
+              </table>
+            
+          </div> -->
+
+          
+
+          <!-- <div class="row">
+      
+            
+              <h4>Model attributes after fitting:</h4>
+              <br>
+            
+              {% for table in modelattr %}
+                {{ table|safe }}
+                {% endfor %}
+            
+            
+          </div> -->
+
+        
+
+    </div> 
+
+
+
+		</div> <!-- end of wrapper -->
+
+    <!-- <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/popper.js"></script>
+    <script src="/staticjs/bootstrap.min.js"></script> -->
+    <!-- <script src="/static/js/main.js"></script> -->
+  </body>
+</html>
