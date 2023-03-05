@@ -12,6 +12,7 @@ db = psycopg2.connect(database="mydb", user='postgres', password='xxx', host='lo
 cur = db.cursor()
 ```
 
+## User Guide
 ![alt text](https://github.com/ethanpng2021/flask_for_machinelearning/blob/main/machinelearningapp/static/sampleimg/c33.jpg)
 ![alt text](https://github.com/ethanpng2021/flask_for_machinelearning/blob/main/machinelearningapp/static/sampleimg/c22.jpg)
 ![alt text](https://github.com/ethanpng2021/flask_for_machinelearning/blob/main/machinelearningapp/static/sampleimg/c11.jpg)
