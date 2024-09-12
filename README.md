@@ -1,5 +1,5 @@
 # Flask App for Machine Learning
-[![Watch the video](https://youtu.be/EWkzmvbtTIg/0.jpg)](https://youtu.be/EWkzmvbtTIg)
+[![Watch the video](https://www.youtube.com/watch?v=EWkzmvbtTIg/0.jpg)](https://www.youtube.com/watch?v=EWkzmvbtTIg)
 ## Set Up: 
 Change these lines to your PC/laptop/server environment:
 ```python
